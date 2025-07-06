@@ -1,3 +1,6 @@
+const apiToken = process.env.API_TOKEN;
+const chatId = process.env.CHAT_ID;
+
 const cheerio = require('cheerio');
 const Telenode = require('telenode-js');
 const fs = require('fs');
