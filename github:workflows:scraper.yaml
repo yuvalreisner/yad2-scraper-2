@@ -1,0 +1,49 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 name: Yad2 Scraper\
+\
+on:\
+  schedule:\
+    - cron: '*/15 5-17 * * *'\
+  workflow_dispatch:\
+\
+jobs:\
+  scraper:\
+    runs-on: ubuntu-latest\
+    permissions:\
+      contents: write\
+    steps:\
+      - name: Checkout\
+        uses: actions/checkout@v3\
+\
+      - name: Install packages\
+        run: yarn install\
+\
+      - name: Setup git config\
+        run: |\
+          git config user.name "GitHub Actions"\
+          git config user.email "$\{\{ secrets.GIT_CONFIG_EMAIL \}\}"\
+\
+      - name: Run scraper\
+        run: |\
+          export API_TOKEN=$\{\{ secrets.API_TOKEN \}\}\
+          export CHAT_ID=$\{\{ secrets.CHAT_ID \}\}\
+          yarn scrape\
+\
+      - name: Push new json data if needed\
+        run: |\
+          if [ -f ./push_me ]; then\
+            echo Pushing to Github...\
+            git add .\
+            DATE=$(date +"%F, %H:%M:%S")\
+            git commit -m "updated data - $DATE"\
+            git push\
+          fi\
+}
