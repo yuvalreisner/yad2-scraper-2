@@ -1,1 +1,13 @@
+services:
+  - type: cron
+    name: yad2-scraper
+    env: node
+    schedule: "*/15 * * * *"
+    buildCommand: yarn install
+    startCommand: yarn scrape
+    envVars:
+      - key: API_TOKEN
+        value: ${API_TOKEN}
+      - key: CHAT_ID
+        value: ${CHAT_ID}
 
