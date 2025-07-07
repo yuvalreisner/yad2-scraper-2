@@ -1,10 +1,10 @@
 {
   "telegramApiToken": null,
-  "chatId": null,
+  "chatId": 884818124,
   "projects": [
     {
       "topic": "דירות בירושלים",
-      "url": "https://www.yad2.co.il/realestate/rent?maxPrice=5700&minRooms=2&maxRooms=3&property=1%2C11%2C31&multiNeighborhood=575%2C573%2C571"
+      "url": "https://www.yad2.co.il/realestate/rent?multiCity=5000%2C3000%2C9000%2C4000"
     },
     {
       "topic": "רכבים",
